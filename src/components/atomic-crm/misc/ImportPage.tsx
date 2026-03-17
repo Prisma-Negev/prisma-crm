@@ -23,6 +23,7 @@ import {
   useImportFromJson,
 } from "./useImportFromJson";
 import sampleFile from "./import-sample.json?url";
+import { AITextImport } from "../contacts/AITextImport";
 
 export const ImportPage = () => {
   const translate = useTranslate();
@@ -57,6 +58,7 @@ export const ImportPage = () => {
           )}
         </CardContent>
       </Card>
+      <AITextImport />
     </div>
   );
 };
