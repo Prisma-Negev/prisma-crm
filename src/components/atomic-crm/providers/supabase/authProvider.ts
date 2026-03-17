@@ -88,14 +88,19 @@ function clearCache() {
 export const authProvider: AuthProvider = {
   ...baseAuthProvider,
   login: async (params) => {
-    if (params.ssoDomain) {
-      const { error } = await supabase.auth.signInWithSSO({
-        domain: params.ssoDomain,
+    if (params.googleOAuth) {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: window.location.origin + window.location.pathname,
+        },
       });
       if (error) {
         throw error;
       }
-      return;
+      // OAuth redirects the browser, so we return a rejected promise
+      // to prevent react-admin from navigating before the redirect
+      return Promise.reject();
     }
     return baseAuthProvider.login(params);
   },

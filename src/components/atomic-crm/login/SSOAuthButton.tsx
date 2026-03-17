@@ -5,7 +5,6 @@ import { Spinner } from "@/components/ui/spinner";
 
 export const SSOAuthButton = ({
   children,
-  domain,
   redirect: redirectTo,
   ...props
 }: SSOAuthButtonProps) => {
@@ -17,7 +16,7 @@ export const SSOAuthButton = ({
     event.preventDefault();
     setIsPending(true);
     login(
-      { ssoDomain: domain },
+      { googleOAuth: true },
       redirectTo ?? window.location.toString(),
     ).catch((error) => {
       setIsPending(false);
@@ -62,6 +61,5 @@ export const SSOAuthButton = ({
 };
 
 export type SSOAuthButtonProps = {
-  domain: string;
   redirect?: string;
 } & ComponentProps<typeof Button>;

@@ -24,6 +24,8 @@ export const LoginPage = (props: { redirectTo?: string }) => {
     googleWorkplaceDomain,
     disableEmailPasswordAuthentication,
   } = useConfigurationContext();
+  // Show the Google button if the VITE_GOOGLE_WORKPLACE_DOMAIN env var is set
+  const showGoogleButton = !!googleWorkplaceDomain;
   const { redirectTo } = props;
   const [loading, setLoading] = useState(false);
   const hasDisplayedRecoveryNotification = useRef(false);
@@ -131,10 +133,10 @@ export const LoginPage = (props: { redirectTo?: string }) => {
                 </div>
               </Form>
             )}
-            {googleWorkplaceDomain ? (
-              <SSOAuthButton className="w-full" domain={googleWorkplaceDomain}>
-                {translate("crm.auth.sign_in_google_workspace", {
-                  _: "Sign in with Google Workplace",
+            {showGoogleButton ? (
+              <SSOAuthButton className="w-full">
+                {translate("crm.auth.sign_in_google", {
+                  _: "כניסה עם Google",
                 })}
               </SSOAuthButton>
             ) : null}
